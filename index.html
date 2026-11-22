@@ -174,6 +174,27 @@
           </div>
           <div class="hash" id="hash-setup"><b>SHA-256</b><br />ccc7bb55f7838879000d8d0903aa5145c1d012629c32c7f22f47a1e936d6b2af</div>
         </div>
+
+        <div class="panel dl" style="grid-column:1/-1">
+          <h2>macOS — experimental</h2>
+          <p>
+            A universal disk image: one file that runs on both Apple Silicon and Intel Macs. Built and packaged
+            on macOS, but <b>not yet tested on Mac hardware</b> — treat it as a preview, not as the everyday copy.
+          </p>
+          <a class="btn secondary" id="dl-mac" href="https://github.com/nk12Kumar/factooooo-preview/releases/download/v0.16.0/Factooooo-0.16.0-universal.dmg">
+            Download the .dmg · <span id="size-mac">210 MB</span>
+          </a>
+          <div class="meta">
+            <span>macOS 11 or newer</span>
+            <span>Universal · Apple Silicon + Intel</span>
+            <span>Unsigned</span>
+          </div>
+          <p class="note" style="margin-top:10px">
+            <b>First launch:</b> macOS will say the developer cannot be verified because this build is not
+            notarised. Right-click the app and choose <b>Open</b>, then confirm once. Data is kept in
+            <code>~/Library/Application Support/Factooooo</code>.
+          </p>
+        </div>
       </div>
 
       <div class="cols">
@@ -254,6 +275,7 @@
             }
             var portable = pick(/Portable/i)
             var setup = pick(/Setup/i)
+            var mac = pick(/\.dmg$/i)
             var stale = rel.tag_name !== served
 
             var chip = byId('version-chip')
@@ -262,6 +284,10 @@
             if (portable) {
               byId('dl-portable').href = portable.browser_download_url
               byId('size-portable').textContent = mb(portable.size)
+            }
+            if (mac) {
+              byId('dl-mac').href = mac.browser_download_url
+              byId('size-mac').textContent = Math.round(mac.size / 1048576) + ' MB'
             }
             if (setup) {
               byId('dl-setup').href = setup.browser_download_url
